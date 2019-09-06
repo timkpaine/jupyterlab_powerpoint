@@ -1,2 +1,18 @@
 # jupyterlab_powerpoint
 Creating PowerPoints from jupyter notebooks
+
+[![Build Status](https://travis-ci.org/timkpaine/jupyterlab_powerpoint.svg?branch=master)](https://travis-ci.org/timkpaine/jupyterlab_powerpoint)
+[![GitHub issues](https://img.shields.io/github/issues/timkpaine/jupyterlab_powerpoint.svg)]()
+[![codecov](https://codecov.io/gh/timkpaine/jupyterlab_powerpoint/branch/master/graph/badge.svg)](https://codecov.io/gh/timkpaine/jupyterlab_powerpoint)
+[![PyPI](https://img.shields.io/pypi/l/jupyterlab_powerpoint.svg)](https://pypi.python.org/pypi/jupyterlab_powerpoint)
+[![PyPI](https://img.shields.io/pypi/v/jupyterlab_powerpoint.svg)](https://pypi.python.org/pypi/jupyterlab_powerpoint)
+[![npm](https://img.shields.io/npm/v/jupyterlab_powerpoint.svg)](https://www.npmjs.com/package/jupyterlab_powerpoint)
+
+
+## Install
+
+```bash
+pip install jupyterlab_powerpoint
+jupyter labextension install jupyterlab_powerpoint
+jupyter serverextension enable --py jupyterlab_powerpoint
+```
