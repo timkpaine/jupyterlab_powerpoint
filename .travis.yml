@@ -16,7 +16,7 @@ script:
   - make test
 
 after_success:
-    # - codecov --token 97f16cfc-c334-4401-b4ae-1ed0c6163ade
+    - codecov --token 22de4f1c-9d95-4ef1-bc07-5ef5d29ddc90
 
 branches:
   only:
