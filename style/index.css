@@ -1,0 +1,18 @@
+div.PowerpointTool {
+
+}
+
+div.PowerpointEditor {
+    display: flex;
+    flex-direction: column;
+    background: cyan;
+    margin-bottom: 5px;
+}
+
+div.PowerpointEditor-invalid {
+    border: 1px solid red;
+}
+
+div.PowerpointEditor div.CodeMirror-lines {
+    border: 1px solid lightgrey;
+}
