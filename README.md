@@ -16,3 +16,10 @@ pip install jupyterlab_powerpoint
 jupyter labextension install jupyterlab_powerpoint
 jupyter serverextension enable --py jupyterlab_powerpoint
 ```
+
+## Workflow
+
+- Generate a notebook from a prexisting notebook (includes metadata necessary to reconstruct the original powerpoint)
+- Parameterize notebook, modify parts/text/data
+    + hook in to `Papermill`, leverage python, rexecute daily, etc
+- Generate a powerpoint from the notebook
