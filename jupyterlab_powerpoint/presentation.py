@@ -1,4 +1,6 @@
 import nbformat
+from nbconvert.utils.pandoc import pandoc
+from lxml import etree
 from pptx import Presentation as _pptx_presentation
 
 
@@ -44,7 +46,6 @@ class Slide(object):
 
     def new_part(self, type):
         if type not in self.part_types():
-            print(list(self._part_types.keys()))
             raise ValueError("Part type not found: {}".format(type))
         return self._part_types[type]
 
@@ -101,7 +102,7 @@ class Presentation(object):
             slide = slides[slide_number - 1]
             part = slide.new_part(placeholder)
             if part.has_text_frame:
-                part.text_frame.text = cell['source']
+                part.text_frame.text = pandoc(cell['source'], 'markdown', 'opendocument')
 
         for slide in slides:
             if slide is None:

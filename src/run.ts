@@ -3,7 +3,7 @@ import {Dialog, showDialog} from "@jupyterlab/apputils";
 import {PageConfig} from "@jupyterlab/coreutils";
 import {IDocumentManager} from "@jupyterlab/docmanager";
 
-import {IRequestResult, request} from "./request";
+import {IRequestResult, request} from "requests-helper";
 
 export
 function generateSample(app: JupyterFrontEnd, docManager: IDocumentManager): void {
