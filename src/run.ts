@@ -11,7 +11,7 @@ function generateSample(app: JupyterFrontEnd, docManager: IDocumentManager): voi
         buttons: [Dialog.cancelButton(), Dialog.okButton({ label: "Ok" })],
         title: "Generate Preview?",
     }).then((result) => {
-        if (result.button.label === "CANCEL") {
+        if (result.button.label === "Cancel") {
             return;
         }
         const context = docManager.contextForWidget(app.shell.currentWidget);
