@@ -1,6 +1,6 @@
 import nbformat
 from nbconvert.utils.pandoc import pandoc
-from lxml import etree
+# from lxml import etree
 from pptx import Presentation as _pptx_presentation
 
 
