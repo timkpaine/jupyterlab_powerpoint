@@ -35,7 +35,7 @@ js:  ## build javascript
 	yarn build
 
 fix:  ## run autopep8/tslint fix
-	autopep8 --in-place -r -a -a jupyterlab_celltests/
+	autopep8 --in-place -r -a -a jupyterlab_powerpoint/
 	./node_modules/.bin/tslint --fix src/*
 
 labextension: js ## enable labextension
