@@ -34,6 +34,10 @@ js:  ## build javascript
 	yarn
 	yarn build
 
+fix:  ## run autopep8/tslint fix
+	autopep8 --in-place -r -a -a jupyterlab_celltests/
+	./node_modules/.bin/tslint --fix src/*
+
 labextension: js ## enable labextension
 	jupyter labextension install .
 
