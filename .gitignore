@@ -167,3 +167,4 @@ ENV/
 yarn.lock
 
 .autoversion
+pandoc-master
