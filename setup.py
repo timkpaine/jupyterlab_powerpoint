@@ -62,6 +62,7 @@ setup(
     version=version,
     description='Create powerpoints from jupyter notebooks',
     long_description=long_description,
+    long_description_content_type='text/markdown',
     url='https://github.com/timkpaine/jupyterlab_powerpoint',
     author='Tim Paine',
     author_email='t.paine154@gmail.com',
