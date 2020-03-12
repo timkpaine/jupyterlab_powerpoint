@@ -2,29 +2,32 @@ testjs: ## Clean and Make js tests
 	yarn test
 
 testpy: ## Clean and Make unit tests
-	python3.7 -m pytest -v tests --cov=jupyterlab_powerpoint
+	python3.7 -m pytest -v jupyterlab_powerpoint/tests --cov=jupyterlab_powerpoint
 
 tests: lint ## run the tests
-	python3.7 -m pytest -v tests --cov=jupyterlab_powerpoint --junitxml=python_junit.xml --cov-report=xml --cov-branch
+	python3.7 -m pytest -v jupyterlab_powerpoint/tests --cov=jupyterlab_powerpoint --junitxml=python_junit.xml --cov-report=xml --cov-branch
 	yarn test
 
 lint: ## run linter
-	flake8 jupyterlab_powerpoint 
+	flake8 jupyterlab_powerpoint setup.py
 	yarn lint
+
+fix:  ## run autopep8/tslint fix
+	autopep8 --in-place -r -a -a jupyterlab_powerpoint/
+	./node_modules/.bin/tslint --fix src/*
 
 annotate: ## MyPy type annotation check
 	mypy -s jupyterlab_powerpoint
 
 annotate_l: ## MyPy type annotation check - count only
-	mypy -s jupyterlab_powerpoint | wc -l 
+	mypy -s jupyterlab_powerpoint | wc -l
 
 clean: ## clean the repository
-	find . -name "__pycache__" | xargs  rm -rf 
-	find . -name "*.pyc" | xargs rm -rf 
-	find . -name ".ipynb_checkpoints" | xargs  rm -rf 
-	rm -rf .coverage cover htmlcov logs build dist *.egg-info lib node_modules
-	git clean -fd
-	make -C ./docs clean
+	find . -name "__pycache__" | xargs  rm -rf
+	find . -name "*.pyc" | xargs rm -rf
+	find . -name ".ipynb_checkpoints" | xargs  rm -rf
+	rm -rf .coverage coverage cover htmlcov logs build dist *.egg-info lib node_modules
+	# make -C ./docs clean
 
 docs:  ## make documentation
 	make -C ./docs html
@@ -40,18 +43,16 @@ js:  ## build javascript
 	yarn
 	yarn build
 
-fix:  ## run autopep8/tslint fix
-	autopep8 --in-place -r -a -a jupyterlab_powerpoint/
-	./node_modules/.bin/tslint --fix src/*
-
 labextension: js ## enable labextension
 	jupyter labextension install .
 
-dist:  js  ## dist to pypi
+dist: js  ## create dists
 	rm -rf dist build
-	python3.7 setup.py sdist
-	python3.7 setup.py bdist_wheel
+	python3.7 setup.py sdist bdist_wheel
+
+publish: dist  ## dist to pypi and npm
 	twine check dist/* && twine upload dist/*
+	npm publish
 
 # Thanks to Francoise at marmelab.com for this
 .DEFAULT_GOAL := help

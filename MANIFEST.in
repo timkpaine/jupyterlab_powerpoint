@@ -8,7 +8,7 @@ include pyproject.toml
 include .bumpversion.cfg
 include Makefile
 
-graft tests
+graft jupyterlab_powerpoint/tests
 
 # Documentation
 graft docs
