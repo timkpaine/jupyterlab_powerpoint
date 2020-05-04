@@ -1,7 +1,7 @@
 {
   "name": "jupyterlab_powerpoint",
   "version": "0.1.0",
-  "description": "A JupyterLab extension.",
+  "description": "Create powerpoints from jupyter notebooks",
   "author": "Tim Paine",
   "main": "lib/index.js",
   "keywords": [
