@@ -13,9 +13,9 @@ const extension: JupyterFrontEndPlugin<void> = {
   id: "jupyterlab_powerpoint",
   optional: [ILauncher],
   requires: [IDocumentManager,
-             ICommandPalette,
-             INotebookTracker,
-             INotebookTools],
+    ICommandPalette,
+    INotebookTracker,
+    INotebookTools],
 };
 
 export default extension;

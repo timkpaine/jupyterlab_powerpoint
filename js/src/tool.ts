@@ -13,8 +13,7 @@ export class PowerpointTool extends NotebookTools.Tool {
   public cellTools: INotebookTools = null;
   private widget: PowerpointWidget = null;
 
-  // tslint:disable-next-line:variable-name
-  constructor(app: JupyterFrontEnd, notebook_Tracker: INotebookTracker, cellTools: INotebookTools) {
+  public constructor(app: JupyterFrontEnd, notebook_Tracker: INotebookTracker, cellTools: INotebookTools) {
     super();
     this.notebookTracker = notebook_Tracker;
     this.cellTools = cellTools;
@@ -35,7 +34,7 @@ export class PowerpointTool extends NotebookTools.Tool {
     this.widget.loadActiveCell();
   }
 
-  // tslint:disable-next-line:no-empty
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected onAfterShow() {
 
   }
