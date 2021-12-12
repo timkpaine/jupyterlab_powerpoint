@@ -1,20 +1,20 @@
-import { Message } from "@lumino/messaging";
-import { PanelLayout } from "@lumino/widgets";
+/* eslint-disable no-multi-assign */
+import {PanelLayout} from "@lumino/widgets";
 
-import { JupyterFrontEnd } from "@jupyterlab/application";
-import { INotebookTools, INotebookTracker, NotebookTools } from "@jupyterlab/notebook";
-import { ObservableJSON } from "@jupyterlab/observables";
+import {NotebookTools} from "@jupyterlab/notebook";
 
-import { POWERPOINT_TOOL_CLASS } from "./utils";
-import { PowerpointWidget } from "./widget";
+import {POWERPOINT_TOOL_CLASS} from "./utils";
+import {PowerpointWidget} from "./widget";
 
 export class PowerpointTool extends NotebookTools.Tool {
-  public notebookTracker: INotebookTracker = null;
-  public cellTools: INotebookTools = null;
-  private widget: PowerpointWidget = null;
+  notebookTracker = null;
+
+  cellTools = null;
+
+  widget = null;
 
   // tslint:disable-next-line:variable-name
-  constructor(app: JupyterFrontEnd, notebook_Tracker: INotebookTracker, cellTools: INotebookTools) {
+  constructor(app, notebook_Tracker, cellTools) {
     super();
     this.notebookTracker = notebook_Tracker;
     this.cellTools = cellTools;
@@ -30,17 +30,15 @@ export class PowerpointTool extends NotebookTools.Tool {
   /**
    * Handle a change to the active cell.
    */
-  protected onActiveCellChanged(msg: Message): void {
+  onActiveCellChanged() {
     this.widget.currentActiveCell = this.cellTools.activeCell;
     this.widget.loadActiveCell();
   }
 
   // tslint:disable-next-line:no-empty
-  protected onAfterShow() {
+  onAfterShow() {}
 
-  }
-
-  protected onAfterAttach() {
+  onAfterAttach() {
     this.notebookTracker.currentWidget.context.ready.then(() => {
       this.widget.loadActiveCell();
     });
@@ -52,8 +50,7 @@ export class PowerpointTool extends NotebookTools.Tool {
     });
   }
 
-  protected onMetadataChanged(msg: ObservableJSON.ChangeMessage): void {
+  onMetadataChanged() {
     this.widget.loadActiveCell();
   }
-
 }
