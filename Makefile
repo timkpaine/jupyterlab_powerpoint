@@ -2,31 +2,28 @@ testjs: ## Clean and Make js tests
 	yarn test
 
 testpy: ## Clean and Make unit tests
-	python3.7 -m pytest -v jupyterlab_powerpoint/tests --cov=jupyterlab_powerpoint
+	python -m pytest -v jupyterlab_powerpoint/tests --cov=jupyterlab_powerpoint
 
 tests: lint ## run the tests
-	python3.7 -m pytest -v jupyterlab_powerpoint/tests --cov=jupyterlab_powerpoint --junitxml=python_junit.xml --cov-report=xml --cov-branch
-	yarn test
+	python -m pytest -v jupyterlab_powerpoint/tests --cov=jupyterlab_powerpoint --junitxml=python_junit.xml --cov-report=xml --cov-branch
+	cd js; yarn test
+
+build: ## build python and js
+	python setup.py build
 
 lint: ## run linter
-	flake8 jupyterlab_powerpoint setup.py
-	yarn lint
+	python -m flake8 jupyterlab_powerpoint setup.py
+	cd js; yarn lint
 
-fix:  ## run autopep8/tslint fix
-	autopep8 --in-place -r -a -a jupyterlab_powerpoint/
-	./node_modules/.bin/tslint --fix src/*
-
-annotate: ## MyPy type annotation check
-	mypy -s jupyterlab_powerpoint
-
-annotate_l: ## MyPy type annotation check - count only
-	mypy -s jupyterlab_powerpoint | wc -l
+fix:  ## run black/eslint fix
+	python -m black jupyterlab_powerpoint setup.py
+	cd js; yarn fix
 
 clean: ## clean the repository
 	find . -name "__pycache__" | xargs  rm -rf
 	find . -name "*.pyc" | xargs rm -rf
 	find . -name ".ipynb_checkpoints" | xargs  rm -rf
-	rm -rf .coverage coverage cover htmlcov logs build dist *.egg-info lib node_modules
+	rm -rf .coverage coverage cover htmlcov logs build dist *.egg-info lib node_modules .autoversion .pytest_cache lab-dist coverage.xml python_junit.xml
 	# make -C ./docs clean
 
 docs:  ## make documentation
@@ -34,25 +31,26 @@ docs:  ## make documentation
 	open ./docs/_build/html/index.html
 
 install:  ## install to site-packages
-	pip3 install .
+	python -m pip install .
 
 serverextension: install ## enable serverextension
-	jupyter serverextension enable --py jupyterlab_powerpoint
+	python -m jupyter serverextension enable --py jupyterlab_powerpoint
 
 js:  ## build javascript
-	yarn
-	yarn build
+	cd js; yarn
+	cd js; yarn build
 
 labextension: js ## enable labextension
-	jupyter labextension install .
+	cd js; python -m jupyter labextension install .
 
 dist: js  ## create dists
 	rm -rf dist build
-	python3.7 setup.py sdist bdist_wheel
+	python setup.py sdist bdist_wheel
+	python -m twine check dist/*
 
 publish: dist  ## dist to pypi and npm
-	twine check dist/* && twine upload dist/*
-	npm publish
+	python -m twine upload dist/* --skip-existing
+	cd js; npm publish || echo "can't publish - might already exist"
 
 # Thanks to Francoise at marmelab.com for this
 .DEFAULT_GOAL := help
@@ -62,4 +60,4 @@ help:
 print-%:
 	@echo '$*=$($*)'
 
-.PHONY: clean install serverextension labextension test tests help docs dist
+.PHONY: clean install serverextension labextension test tests help docs dist build lint test tests testjs testpy js

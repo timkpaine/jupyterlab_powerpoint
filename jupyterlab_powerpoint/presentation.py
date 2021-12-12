@@ -1,5 +1,6 @@
 import nbformat
 from nbconvert.utils.pandoc import pandoc
+
 # from lxml import etree
 from pptx import Presentation as _pptx_presentation
 
@@ -24,7 +25,9 @@ class Slide(object):
         self._name = slide.name
         self._parts = []
         self._part_types = {ps.name: ps for ps in self._slide.placeholders}
-        self._placeholder_types = {ps.name: ps for ps in self._slide_layout.placeholders}
+        self._placeholder_types = {
+            ps.name: ps for ps in self._slide_layout.placeholders
+        }
 
     def parts(self):
         return self._parts
@@ -57,7 +60,9 @@ class Presentation(object):
     def __init__(self, master_or_presentation=None):
         self._presentation = _pptx_presentation(master_or_presentation)
         self._slides = []
-        self._slide_types = {s.name: s for s in self._presentation.slide_master.slide_layouts}
+        self._slide_types = {
+            s.name: s for s in self._presentation.slide_master.slide_layouts
+        }
 
         for slide in self._presentation.slides:
             self._slides.append(Slide(slide))
@@ -83,7 +88,7 @@ class Presentation(object):
 
     @staticmethod
     def from_notebook(nb, master):
-        '''Convert an nbformat.NotebookNode to a Presentation object'''
+        """Convert an nbformat.NotebookNode to a Presentation object"""
         pres = Presentation(master)
         slides = []
         for cell in nb.cells:
@@ -102,7 +107,9 @@ class Presentation(object):
             slide = slides[slide_number - 1]
             part = slide.new_part(placeholder)
             if part.has_text_frame:
-                part.text_frame.text = pandoc(cell['source'], 'markdown', 'opendocument')
+                part.text_frame.text = pandoc(
+                    cell["source"], "markdown", "opendocument"
+                )
 
         for slide in slides:
             if slide is None:
@@ -110,7 +117,7 @@ class Presentation(object):
         return pres
 
     def to_notebook(self):
-        '''Convert a presentation object to a nbformat.NotebookNode object'''
+        """Convert a presentation object to a nbformat.NotebookNode object"""
         notebook = nbformat.v4.new_notebook()
         for i, slide in enumerate(self.slides()):
             for j, part in enumerate(slide.part_types().values()):
@@ -121,15 +128,17 @@ class Presentation(object):
                     cell.source = "chart"
                 elif part.has_table:
                     cell.source = "table"
-                cell.metadata['jupyterlab_powerpoint'] = {}
-                cell.metadata['jupyterlab_powerpoint']['slide'] = i
-                cell.metadata['jupyterlab_powerpoint']['type'] = slide.name() or slide.layout().name
-                cell.metadata['jupyterlab_powerpoint']['placeholder'] = part.name
+                cell.metadata["jupyterlab_powerpoint"] = {}
+                cell.metadata["jupyterlab_powerpoint"]["slide"] = i
+                cell.metadata["jupyterlab_powerpoint"]["type"] = (
+                    slide.name() or slide.layout().name
+                )
+                cell.metadata["jupyterlab_powerpoint"]["placeholder"] = part.name
                 notebook.cells.append(cell)
         return notebook
 
     def to_notebook_master(self):
-        '''Convert presentation's slidemaster to a nbformat.NotebookNode object'''
+        """Convert presentation's slidemaster to a nbformat.NotebookNode object"""
         notebook = nbformat.v4.new_notebook()
         for i, slide in enumerate(self.slide_types().values()):
             for j, placeholder in enumerate(slide.placeholders):
@@ -140,10 +149,10 @@ class Presentation(object):
                     cell.source = "chart"
                 elif placeholder.has_table:
                     cell.source = "table"
-                cell.metadata['jupyterlab_powerpoint'] = {}
-                cell.metadata['jupyterlab_powerpoint']['slide'] = i
-                cell.metadata['jupyterlab_powerpoint']['type'] = slide.name
-                cell.metadata['jupyterlab_powerpoint']['placeholder'] = placeholder.name
+                cell.metadata["jupyterlab_powerpoint"] = {}
+                cell.metadata["jupyterlab_powerpoint"]["slide"] = i
+                cell.metadata["jupyterlab_powerpoint"]["type"] = slide.name
+                cell.metadata["jupyterlab_powerpoint"]["placeholder"] = placeholder.name
                 notebook.cells.append(cell)
         return notebook
 
