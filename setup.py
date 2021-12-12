@@ -1,14 +1,9 @@
 from codecs import open
 from os import path
 
-from jupyter_packaging import (
-    combine_commands,
-    create_cmdclass,
-    ensure_python,
-    ensure_targets,
-    get_version,
-    install_npm,
-)
+from jupyter_packaging import (combine_commands, create_cmdclass,
+                               ensure_python, ensure_targets, get_version,
+                               install_npm)
 from setuptools import find_packages, setup
 
 pjoin = path.join
@@ -70,6 +65,7 @@ setup(
     version=version,
     description="Create powerpoints from jupyter notebooks",
     long_description=long_description,
+    long_description_content_type="text/markdown",
     url="https://github.com/timkpaine/jupyterlab_powerpoint",
     author="Tim Paine",
     author_email="t.paine154@gmail.com",
