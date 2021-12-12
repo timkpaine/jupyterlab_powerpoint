@@ -1,8 +1,8 @@
 # jupyterlab_powerpoint
 Creating PowerPoints from jupyter notebooks
 
-[![Build Status](https://dev.azure.com/tpaine154/jupyter/_apis/build/status/timkpaine.jupyterlab_powerpoint?branchName=main)](https://dev.azure.com/tpaine154/jupyter/_build/latest?definitionId=12&branchName=main)
-[![Coverage](https://img.shields.io/azure-devops/coverage/tpaine154/jupyter/12)](https://dev.azure.com/tpaine154/jupyter/_build?definitionId=12&_a=summary)
+[![Build Status](https://github.com/timkpaine/jupyterlab_powerpoint/workflows/Build%20Status/badge.svg?branch=main)](https://github.com/timkpaine/jupyterlab_powerpoint/actions?query=workflow%3A%22Build+Status%22)
+[![codecov](https://codecov.io/gh/timkpaine/jupyterlab_powerpoint/branch/main/graph/badge.svg)](https://codecov.io/gh/timkpaine/jupyterlab_powerpoint)
 [![GitHub issues](https://img.shields.io/github/issues/timkpaine/jupyterlab_powerpoint.svg)]()
 [![PyPI](https://img.shields.io/pypi/l/jupyterlab_powerpoint.svg)](https://pypi.python.org/pypi/jupyterlab_powerpoint)
 [![PyPI](https://img.shields.io/pypi/v/jupyterlab_powerpoint.svg)](https://pypi.python.org/pypi/jupyterlab_powerpoint)
