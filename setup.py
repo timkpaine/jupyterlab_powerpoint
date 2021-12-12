@@ -24,7 +24,7 @@ with open(path.join(here, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
 requires = [
-    "jupyterlab>=1.0.0",
+    "jupyterlab>=3.0.0",
     "nbconvert>=5.5.0",
     "nbformat>=4.4.0",
     "python-pptx>=0.6.0",
