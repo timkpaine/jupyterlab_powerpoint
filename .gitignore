@@ -164,8 +164,6 @@ ENV/
 
 .DS_Store
 
-yarn.lock
-
 .autoversion
 pandoc-master
 
