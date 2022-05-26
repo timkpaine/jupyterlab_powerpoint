@@ -6,6 +6,10 @@ on:
       - main
   pull_request:
 
+concurrency:
+   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+   cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ${{ matrix.os }}
@@ -62,6 +66,12 @@ jobs:
         name: pytest-results-${{ matrix.os }}-${{ matrix.python-version }}
         path: python_junit.xml
       if: ${{ always() }}
+
+    - name: Publish Unit Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v1
+      with:
+        files: python_junit.xml
+      if: ${{ github.event_name == matrix.event-name || matrix.os == 'ubuntu-latest' }}
 
     - name: Upload coverage
       uses: codecov/codecov-action@v2
